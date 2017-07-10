@@ -1,7 +1,6 @@
 package fr.pizzeria.ihm;
 
 import fr.pizzeria.dao.PizzaDao;
-import fr.pizzeria.exception.UpdatePizzaException;
 
 public abstract class OptionMenu {
 	public PizzaDao dao; 
@@ -13,9 +12,8 @@ public abstract class OptionMenu {
 
 	/**
 	 * @return
-	 * @throws UpdatePizzaException 
 	 */
-	public abstract boolean excute() throws UpdatePizzaException;
+	public abstract boolean excute();
 	
 	/**
 	 * @return
