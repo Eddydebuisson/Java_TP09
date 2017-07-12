@@ -5,7 +5,7 @@ public class Pizza {
 	int id;
 	String code;
 	String nom;
-	Double prix;
+	Double prix
 	CategoriePizza categorie;
 	
 	/**
