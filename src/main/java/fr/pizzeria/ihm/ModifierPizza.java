@@ -35,7 +35,7 @@ public class ModifierPizza extends OptionMenu {
 			String nom = Menu.sc.next();
 			LOG.info("Veuillez saisir le prix");
 			String prix = Menu.sc.next();
-			LOG.info("Veulliez indiquer la catégorie de la Pizza : Viande, non viande ou poisson");
+			LOG.info("Veulliez indiquer la catégorie de la Pizza : VIANDE, SANS_VIANDE ou POISSON");
 			String categorie= Menu.sc.next();
 			
 			//instanciation Pizza

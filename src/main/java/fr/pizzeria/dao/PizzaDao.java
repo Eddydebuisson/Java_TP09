@@ -3,7 +3,6 @@ package fr.pizzeria.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -26,6 +25,7 @@ public class PizzaDao implements IPizzaDao {
 		listepizza.add(new Pizza(7, "IND", "L'indienne", 14.00,CategoriePizza.POISSON));
 	}
 
+	@Override
 	public List<Pizza> findAllPizzas() {
 		return listepizza;
 	}
@@ -40,7 +40,8 @@ public class PizzaDao implements IPizzaDao {
 
 
 	// @Override
-	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
+	@Override
+	public boolean saveNewPizza(Pizza pizza) {
 		listepizza.add(pizza);
 
 		return false;
