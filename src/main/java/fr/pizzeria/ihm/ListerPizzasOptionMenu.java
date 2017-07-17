@@ -1,10 +1,14 @@
 package fr.pizzeria.ihm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.PizzaDao;
 import fr.pizzeria.model.Pizza;
 
 public class ListerPizzasOptionMenu extends OptionMenu{
-	
+	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
+
 	/**
 	 * @param dao contructeur de ListerPizzasOptionMenu
 	 */
@@ -20,7 +24,7 @@ public class ListerPizzasOptionMenu extends OptionMenu{
 	@Override
 	public boolean excute() {
 		for (Pizza s : dao.findAllPizzas() ) {
-				System.out.println(s.toString());
+			LOG.info(s.toString());
 			}
 		
 		

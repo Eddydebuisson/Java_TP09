@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.PizzaDao;
 
 public class Menu {
@@ -13,7 +16,7 @@ public class Menu {
 	public PizzaDao dao;
 	private Map<Integer, OptionMenu> menu = new HashMap<>();
 	public static Scanner sc = new Scanner(System.in);
-
+	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
 	/**
 	 * 
 	 * Instanciation de PizzaDao et du menu.
@@ -35,15 +38,15 @@ public class Menu {
 	 */
 	public void afficher() {
 
-		System.out.println("***** Pizzeria Administration *****");
-		
+		LOG.info("***** Pizzeria Administration *****");
 		
 		Set<Integer> keys = menu.keySet();
 		for (Integer key: keys){
-			System.out.println(menu.get(key).getLibelle());
+			// System.out.println(menu.get(key).getLibelle());
+			LOG.info(menu.get(key).getLibelle());
 		}
 
-		System.out.println("99. Sortie");
+		LOG.info("99. Sortie");
 	}
 
 	/**
@@ -73,7 +76,8 @@ public class Menu {
 				menu.get(3).excute();
 				break;
 			case 99:
-				System.out.println("Aurevoir =( ");
+				LOG.info("Aurevoir =( ");
+
 				break;
 			}
 		} while (reponse != 99);
