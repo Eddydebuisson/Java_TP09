@@ -18,7 +18,7 @@ public class ListerPizzasOptionMenu extends OptionMenu{
 
 	@Override
 	public String getLibelle() {
-		return "1. lister les pizza";
+		return "1.lister les pizza";
 	}
 
 	@Override
