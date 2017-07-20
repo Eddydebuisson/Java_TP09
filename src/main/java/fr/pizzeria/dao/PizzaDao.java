@@ -39,7 +39,6 @@ public class PizzaDao implements IPizzaDao {
 	 */
 
 
-	// @Override
 	@Override
 	public boolean saveNewPizza(Pizza pizza) {
 		listepizza.add(pizza);
