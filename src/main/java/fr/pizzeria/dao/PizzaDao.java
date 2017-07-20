@@ -46,6 +46,10 @@ public class PizzaDao implements IPizzaDao {
 		return false;
 	}
 
+	/**
+	 * @param codepizza
+	 * @return -1 si la pizza n'éxiste pas sinon retourne l'index de la pizza
+	 */
 	public int findIndex(String codepizza) {
 		int i = 0;
 		for (Pizza p : listepizza) {
