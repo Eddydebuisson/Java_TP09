@@ -1,6 +1,7 @@
 package fr.pizzeria.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -42,6 +43,22 @@ public class TestPizzaDao {
 		dao = new PizzaDao();
 		dao.saveNewPizza(new Pizza(8, "CAT", "Freescis", 13.56, CategoriePizza.POISSON));
 		assertTrue(dao.findAllPizzas().contains(new Pizza(8, "CAT", "Freescis", 13.56, CategoriePizza.POISSON)));
+	}
+
+	@Test
+	public void testUpdatePizza() throws Exception {
+		dao = new PizzaDao();
+		dao.updatePizza("PEP", new Pizza(0, "CAT", "Freescis", 13.56, CategoriePizza.POISSON));
+		assertFalse(dao.findAllPizzas().contains(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE)));
+		assertTrue(dao.findAllPizzas().contains(new Pizza(8, "CAT", "Freescis", 13.56, CategoriePizza.POISSON)));
+	}
+
+	@Test
+	public void testDeletePizza() throws Exception {
+		dao = new PizzaDao();
+		dao.deletePizza("PEP");
+		assertFalse(dao.findAllPizzas().contains(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE)));
+
 	}
 
 }
