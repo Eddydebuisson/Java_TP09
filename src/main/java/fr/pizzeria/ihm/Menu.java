@@ -13,6 +13,7 @@ import fr.pizzeria.dao.PizzaDao;
 public class Menu {
 	
 	
+	private static final int Numero_sortie = 99;
 	public PizzaDao dao;
 	private Map<Integer, OptionMenu> menu = new HashMap<>();
 	public static Scanner sc = new Scanner(System.in);
@@ -24,10 +25,10 @@ public class Menu {
 	 */
 	public Menu() {
 		dao = new PizzaDao();
-		menu.put(new Integer(0), new ListerPizzasOptionMenu(dao));
-		menu.put(new Integer(1), new NouvellePizzaOptionMenu(dao));
-		menu.put(new Integer(2), new ModifierPizza(dao));
-		menu.put(new Integer(3), new SupprimerPizza(dao));
+		menu.put(new Integer(1), new ListerPizzasOptionMenu(dao));
+		menu.put(new Integer(2), new NouvellePizzaOptionMenu(dao));
+		menu.put(new Integer(3), new ModifierPizza(dao));
+		menu.put(new Integer(4), new SupprimerPizza(dao));
 
 	}
 
@@ -42,7 +43,6 @@ public class Menu {
 		
 		Set<Integer> keys = menu.keySet();
 		for (Integer key: keys){
-			// System.out.println(menu.get(key).getLibelle());
 			LOG.info(menu.get(key).getLibelle());
 		}
 
@@ -57,30 +57,11 @@ public class Menu {
 	public void startMenu() {
 
 		afficher();
-		int reponse = -1;
+		int reponse = Numero_sortie;
 		do {
 			reponse = sc.nextInt();
-			switch (reponse) {
-
-			case 1:
-				menu.get(0).excute();
-				break;
-
-			case 2:
-				menu.get(1).excute();
-				break;
-			case 3:
-				menu.get(2).excute();
-				break;
-			case 4:
-				menu.get(3).excute();
-				break;
-			case 99:
-				LOG.info("Aurevoir =( ");
-
-				break;
-			}
-		} while (reponse != 99);
+			menu.get(reponse).excute();
+		} while (reponse != Numero_sortie);
 
 	}
 

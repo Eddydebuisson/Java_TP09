@@ -23,7 +23,7 @@ public class VerifSaisie {
 					if (!pizza.matches("[A-Z]{3}")) {
 						throw new DeletePizzaException("Veuillez saisir un code Correct");
 					}
-					// dao.deletePizza(pizza);
+
 				} else {
 					correct = true;
 				}

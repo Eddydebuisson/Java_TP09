@@ -26,12 +26,10 @@ public class ListerPizzasOptionMenu extends OptionMenu{
 		for (Pizza s : dao.findAllPizzas() ) {
 			LOG.info(s.toString());
 			}
-		
-		
 		return true;
 	}
+	
+	
+	
 
-	
-	
-	
 }
