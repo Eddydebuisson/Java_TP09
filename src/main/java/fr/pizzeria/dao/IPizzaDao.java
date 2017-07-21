@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import fr.pizzeria.exception.DeletePizzaException;
@@ -16,8 +17,9 @@ public interface IPizzaDao {
 
 	/**
 	 * @return
+	 * @throws SQLException
 	 */
-	List<Pizza> findAllPizzas();
+	List<Pizza> findAllPizzas() throws SQLException;
 
 	/**
 	 * @param pizza

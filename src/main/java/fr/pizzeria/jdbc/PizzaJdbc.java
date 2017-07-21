@@ -76,11 +76,11 @@ public class PizzaJdbc implements IPizzaDao {
 	}
 
 	@Override
-	public List<Pizza> findAllPizzas() {
+	public List<Pizza> findAllPizzas() throws SQLException {
 		List<Pizza> pizzas = new ArrayList<>();
-		try {
 
-			ResultSet resultats = statement.executeQuery("SELECT * FROM	PIZZA");
+		ResultSet resultats = statement.executeQuery("SELECT * FROM	PIZZA");
+		try {
 			while (resultats.next()) {
 				Integer id = resultats.getInt("ID");
 				String code = resultats.getString("code");
@@ -89,9 +89,10 @@ public class PizzaJdbc implements IPizzaDao {
 				CategoriePizza categorie = CategoriePizza.valueOf(resultats.getString("categorie"));
 				pizzas.add(new Pizza(id, code, libelle, prix, categorie));
 			}
-			resultats.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resultats.close();
 		}
 		return pizzas;
 	}

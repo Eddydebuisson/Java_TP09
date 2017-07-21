@@ -14,9 +14,14 @@ public class Menu {
 	
 	
 	private static final int Numero_sortie = 99;
-	public PizzaDao dao;
+	private PizzaDao dao;
 	private Map<Integer, OptionMenu> menu = new HashMap<>();
-	public static Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
+
+	public static Scanner getSc() {
+		return sc;
+	}
+
 	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
 	/**
 	 * 
@@ -25,10 +30,10 @@ public class Menu {
 	 */
 	public Menu() {
 		dao = new PizzaDao();
-		menu.put(new Integer(1), new ListerPizzasOptionMenu(dao));
-		menu.put(new Integer(2), new NouvellePizzaOptionMenu(dao));
-		menu.put(new Integer(3), new ModifierPizza(dao));
-		menu.put(new Integer(4), new SupprimerPizza(dao));
+		menu.put(1, new ListerPizzasOptionMenu(dao));
+		menu.put(2, new NouvellePizzaOptionMenu(dao));
+		menu.put(3, new ModifierPizza(dao));
+		menu.put(4, new SupprimerPizza(dao));
 
 	}
 

@@ -27,16 +27,16 @@ public class ModifierPizza extends OptionMenu {
 
 		LOG.info("Tapez 99 pour annuler");
 		LOG.info("Veuillez saisir le code de la Pizza à modifier");
-		String codePizza = Menu.sc.next();
+		String codePizza = Menu.getSc().next();
 		LOG.info("Veuillez saisir le code");
-		String code = Menu.sc.next();
+		String code = Menu.getSc().next();
 		if (!code.equals("99")) {
 			LOG.info("Veuillez saisir le nom (sans espace)");
-			String nom = Menu.sc.next();
+			String nom = Menu.getSc().next();
 			LOG.info("Veuillez saisir le prix");
-			String prix = Menu.sc.next();
+			String prix = Menu.getSc().next();
 			LOG.info("Veulliez indiquer la catégorie de la Pizza : VIANDE, SANS_VIANDE ou POISSON");
-			String categorie= Menu.sc.next();
+			String categorie = Menu.getSc().next();
 			
 			//instanciation Pizza
 			Pizza pizza = new Pizza(code, nom, Double.parseDouble(prix),CategoriePizza.valueOf(categorie));

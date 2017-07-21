@@ -30,7 +30,7 @@ public class SupprimerPizza extends OptionMenu {
 			correct = true;
 			LOG.info("Tapez 99 pour annuler");
 			LOG.info("Veuillez choisir la pizza à supprimer");
-			String pizza = Menu.sc.next();
+			String pizza = Menu.getSc().next();
 			try {
 				if (!pizza.equals("99")) {
 				// Vérifie que le code soit composé de 3 lettres majuscules
