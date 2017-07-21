@@ -27,10 +27,10 @@ public class TestPizzaJdbc {
 	public static void setUp() throws Exception {
 
 		Class.forName("org.h2.Driver");
-		String url = "jdbc:h2:mem:testdb";
+		String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
 		String user = "sa";
-		String passwd = "";
-		conn = DriverManager.getConnection(url, user, passwd);
+		String Bd_pass = "";
+		conn = DriverManager.getConnection(url, user, Bd_pass);
 		statement = conn.createStatement();
 
 		String sql = "CREATE TABLE Pizza (" + " ID int NOT NULL AUTO_INCREMENT," + " code varchar(32) NOT NULL,"
@@ -68,7 +68,6 @@ public class TestPizzaJdbc {
 			Double prix = resultats.getDouble("prix");
 			String categorie = resultats.getString("categorie");
 			System.out.println(id + code + libelle + prix + categorie);
-
 		}
 
 	}

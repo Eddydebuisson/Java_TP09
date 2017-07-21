@@ -54,6 +54,20 @@ public class Pizza {
 	/**
 	 * @return
 	 */
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	/**
+	 * @param categorie
+	 */
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
+	}
+
+	/**
+	 * @return
+	 */
 	public String getCode() {
 		return code;
 	}
