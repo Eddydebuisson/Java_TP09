@@ -72,7 +72,7 @@ public class PizzaJdbc implements IPizzaDao {
 			ajoutPizza.setString(4, p.getCategorie().getValue());
 			ajoutPizza.executeUpdate();
 		}
-
+		ajoutPizza.close();
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class PizzaJdbc implements IPizzaDao {
 				CategoriePizza categorie = CategoriePizza.valueOf(resultats.getString("categorie"));
 				pizzas.add(new Pizza(id, code, libelle, prix, categorie));
 			}
-
+			resultats.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
