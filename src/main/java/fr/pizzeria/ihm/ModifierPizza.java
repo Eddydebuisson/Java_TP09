@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm;
 
+import java.util.Scanner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +11,7 @@ import fr.pizzeria.model.Pizza;
 
 public class ModifierPizza extends OptionMenu {
 	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
-
+	private Scanner sc;
 	/**
 	 * @param Constructeur de ModifierPizza avec en paramètre un PizzaDao
 	 */
@@ -24,19 +26,19 @@ public class ModifierPizza extends OptionMenu {
 
 	@Override
 	public boolean excute() {
-
+		sc = new Scanner(System.in);
 		LOG.info("Tapez 99 pour annuler");
 		LOG.info("Veuillez saisir le code de la Pizza à modifier");
-		String codePizza = Menu.getSc().next();
+		String codePizza = sc.next();
 		LOG.info("Veuillez saisir le code");
-		String code = Menu.getSc().next();
+		String code = sc.next();
 		if (!code.equals("99")) {
 			LOG.info("Veuillez saisir le nom (sans espace)");
-			String nom = Menu.getSc().next();
+			String nom = sc.next();
 			LOG.info("Veuillez saisir le prix");
-			String prix = Menu.getSc().next();
+			String prix = sc.next();
 			LOG.info("Veulliez indiquer la catégorie de la Pizza : VIANDE, SANS_VIANDE ou POISSON");
-			String categorie = Menu.getSc().next();
+			String categorie = sc.next();
 			
 			//instanciation Pizza
 			Pizza pizza = new Pizza(code, nom, Double.parseDouble(prix),CategoriePizza.valueOf(categorie));

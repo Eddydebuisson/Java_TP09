@@ -51,28 +51,33 @@ public class PizzaJdbc implements IPizzaDao {
 		statement.execute(sql);
 	}
 
-	public void initTable() throws SQLException {
+	public void initTable() {
 
-		PreparedStatement ajoutPizza = conn
-				.prepareStatement("INSERT INTO PIZZA(code, libelle, prix, categorie) VALUES ( ? , ? , ?, ? ) ");
 		List<Pizza> listepizza = new ArrayList<>();
-		listepizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
-		listepizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
-		listepizza.add(new Pizza(2, "REI", "La Reine", 11.50, CategoriePizza.POISSON));
-		listepizza.add(new Pizza(3, "FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
-		listepizza.add(new Pizza(4, "CAN", "La cannibale", 12.50, CategoriePizza.VIANDE));
-		listepizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
-		listepizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.SANS_VIANDE));
-		listepizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.POISSON));
+		PreparedStatement ajoutPizza;
+		try {
+			ajoutPizza = conn
+					.prepareStatement("INSERT INTO PIZZA(code, libelle, prix, categorie) VALUES ( ? , ? , ?, ? ) ");
+			listepizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+			listepizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
+			listepizza.add(new Pizza(2, "REI", "La Reine", 11.50, CategoriePizza.POISSON));
+			listepizza.add(new Pizza(3, "FRO", "La 4 fromages", 12.00, CategoriePizza.SANS_VIANDE));
+			listepizza.add(new Pizza(4, "CAN", "La cannibale", 12.50, CategoriePizza.VIANDE));
+			listepizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+			listepizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.SANS_VIANDE));
+			listepizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.POISSON));
 
-		for (Pizza p : listepizza) {
-			ajoutPizza.setString(1, p.getCode());
-			ajoutPizza.setString(2, p.getNom());
-			ajoutPizza.setDouble(3, p.getPrix());
-			ajoutPizza.setString(4, p.getCategorie().getValue());
-			ajoutPizza.executeUpdate();
+			for (Pizza p : listepizza) {
+				ajoutPizza.setString(1, p.getCode());
+				ajoutPizza.setString(2, p.getNom());
+				ajoutPizza.setDouble(3, p.getPrix());
+				ajoutPizza.setString(4, p.getCategorie().getValue());
+				ajoutPizza.executeUpdate();
+			}
+			ajoutPizza.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		ajoutPizza.close();
 	}
 
 	@Override

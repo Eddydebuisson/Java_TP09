@@ -15,7 +15,7 @@ public class Menu {
 	
 	private static final int Numero_sortie = 99;
 	private PizzaDao dao;
-	private Map<Integer, OptionMenu> menu = new HashMap<>();
+	private Map<Integer, OptionMenu> listeMenu = new HashMap<>();
 	private static Scanner sc = new Scanner(System.in);
 
 	public static Scanner getSc() {
@@ -30,10 +30,10 @@ public class Menu {
 	 */
 	public Menu() {
 		dao = new PizzaDao();
-		menu.put(1, new ListerPizzasOptionMenu(dao));
-		menu.put(2, new NouvellePizzaOptionMenu(dao));
-		menu.put(3, new ModifierPizza(dao));
-		menu.put(4, new SupprimerPizza(dao));
+		listeMenu.put(1, new ListerPizzasOptionMenu(dao));
+		listeMenu.put(2, new NouvellePizzaOptionMenu(dao));
+		listeMenu.put(3, new ModifierPizza(dao));
+		listeMenu.put(4, new SupprimerPizza(dao));
 
 	}
 
@@ -46,9 +46,9 @@ public class Menu {
 
 		LOG.info("***** Pizzeria Administration *****");
 		
-		Set<Integer> keys = menu.keySet();
+		Set<Integer> keys = listeMenu.keySet();
 		for (Integer key: keys){
-			LOG.info(menu.get(key).getLibelle());
+			LOG.info(listeMenu.get(key).getLibelle());
 		}
 
 		LOG.info("99. Sortie");
@@ -62,10 +62,10 @@ public class Menu {
 	public void startMenu() {
 
 		afficher();
-		int reponse = Numero_sortie;
+		int reponse;
 		do {
 			reponse = sc.nextInt();
-			menu.get(reponse).excute();
+			listeMenu.get(reponse).excute();
 		} while (reponse != Numero_sortie);
 
 	}
