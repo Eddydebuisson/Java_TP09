@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm;
 
+import java.util.Scanner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,12 +27,13 @@ public class SupprimerPizza extends OptionMenu {
 	public boolean excute() {
 
 		boolean correct;
+		Scanner sc = new Scanner(System.in);
 		// Boucle tant que le code entré n'est pas bon
 		do {
 			correct = true;
 			LOG.info("Tapez 99 pour annuler");
 			LOG.info("Veuillez choisir la pizza à supprimer");
-			String pizza = Menu.getSc().next();
+			String pizza = sc.next();
 			try {
 				if (!pizza.equals("99")) {
 				// Vérifie que le code soit composé de 3 lettres majuscules

@@ -13,7 +13,7 @@ import fr.pizzeria.dao.PizzaDao;
 public class Menu {
 	
 	
-	private static final int Numero_sortie = 99;
+	private static final int NUMEROSORTIE = 99;
 	private PizzaDao dao;
 	private Map<Integer, OptionMenu> listeMenu = new HashMap<>();
 	private static Scanner sc = new Scanner(System.in);
@@ -66,7 +66,7 @@ public class Menu {
 		do {
 			reponse = sc.nextInt();
 			listeMenu.get(reponse).excute();
-		} while (reponse != Numero_sortie);
+		} while (reponse != NUMEROSORTIE);
 
 	}
 

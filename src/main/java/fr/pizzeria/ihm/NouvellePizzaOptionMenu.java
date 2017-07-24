@@ -11,7 +11,6 @@ import fr.pizzeria.model.Pizza;
 
 public class NouvellePizzaOptionMenu extends OptionMenu {
 	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
-	private Scanner sc;
 	/**
 	 * @param dao constructeur NouvellePizzaOptionMenu
 	 */
@@ -27,7 +26,7 @@ public class NouvellePizzaOptionMenu extends OptionMenu {
 
 	@Override
 	public boolean excute() {
-		sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		LOG.info("Tapez 99 pour annuler");
 		LOG.info("Veuillez saisir le code");
 

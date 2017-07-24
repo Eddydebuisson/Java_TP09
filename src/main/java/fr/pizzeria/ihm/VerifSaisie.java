@@ -1,5 +1,7 @@
 package fr.pizzeria.ihm;
 
+import java.util.Scanner;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,14 +11,14 @@ public class VerifSaisie {
 	private static final Logger LOG = LoggerFactory.getLogger(Menu.class);
 
 	public String verifCode() {
-
+		Scanner sc = new Scanner(System.in);
 		boolean correct;
 		// Boucle tant que le code entré n'est pas bon
 		do {
 			correct = true;
 			LOG.info("Tapez 99 pour annuler");
 			LOG.info("Veuillez choisir la pizza à supprimer");
-			String pizza = Menu.getSc().next();
+			String pizza = sc.next();
 			try {
 				if (!pizza.equals("99")) {
 					// Vérifie que le code soit composé de 3 lettres majuscules
@@ -28,7 +30,7 @@ public class VerifSaisie {
 					correct = true;
 				}
 			} catch (DeletePizzaException e) {
-				System.err.println(e.getMessage());
+				LOG.debug(e.getMessage());
 				correct = false;
 			}
 		} while (!correct);

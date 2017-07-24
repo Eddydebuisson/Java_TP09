@@ -1,5 +1,6 @@
 package fr.pizzeria.jdbc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Connection;
@@ -42,8 +43,8 @@ public class TestPizzaJdbc {
 	}
 
 	@Test
-	public void TestConnexion() {
-
+	public void testConnection() throws Exception {
+		assertThat(conn.isValid(0)).isEqualTo(true);
 	}
 
 	@Test

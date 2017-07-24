@@ -24,22 +24,25 @@ public interface IPizzaDao {
 	/**
 	 * @param pizza
 	 * @return
+	 * @throws SQLException
 	 */
-	boolean saveNewPizza(Pizza pizza) throws SavePizzaException;
+	boolean saveNewPizza(Pizza pizza) throws SavePizzaException, SQLException;
 
 	/**
 	 * @param codePizza
 	 * @param pizza
 	 * @return
+	 * @throws SQLException
 	 */
-	boolean updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException;
+	boolean updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException, SQLException;
 
 
 	/**
 	 * @param codePizza
 	 * @return
+	 * @throws SQLException
 	 */
-	boolean deletePizza(String codePizza) throws DeletePizzaException; 
+	boolean deletePizza(String codePizza) throws DeletePizzaException, SQLException;
 	
 	
 	

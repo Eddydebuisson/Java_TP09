@@ -22,7 +22,7 @@ import fr.pizzeria.model.Pizza;
 public class PizzaJdbc implements IPizzaDao {
 	private static final Logger LOG = LoggerFactory.getLogger(PizzaJdbc.class);
 	private Connection conn;
-	private static final String MyDriver = "org.h2.Driver";
+	private static final String MYDRIVER = "org.h2.Driver";
 	private Statement statement;
 
 	public Connection getConn() {
@@ -36,11 +36,11 @@ public class PizzaJdbc implements IPizzaDao {
 	}
 
 	public void initConnection() throws ClassNotFoundException, SQLException {
-			Class.forName(MyDriver);
+		Class.forName(MYDRIVER);
 		String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
 			String user = "sa";
-		String Bd_pass = "";
-		conn = DriverManager.getConnection(url, user, Bd_pass);
+		String bdPass = "";
+		conn = DriverManager.getConnection(url, user, bdPass);
 	}
 
 	public void createtable() throws SQLException {
@@ -51,13 +51,13 @@ public class PizzaJdbc implements IPizzaDao {
 		statement.execute(sql);
 	}
 
-	public void initTable() {
+	public void initTable() throws SQLException {
 
 		List<Pizza> listepizza = new ArrayList<>();
 		PreparedStatement ajoutPizza;
+		ajoutPizza = conn
+				.prepareStatement("INSERT INTO PIZZA(code, libelle, prix, categorie) VALUES ( ? , ? , ?, ? ) ");
 		try {
-			ajoutPizza = conn
-					.prepareStatement("INSERT INTO PIZZA(code, libelle, prix, categorie) VALUES ( ? , ? , ?, ? ) ");
 			listepizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 			listepizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
 			listepizza.add(new Pizza(2, "REI", "La Reine", 11.50, CategoriePizza.POISSON));
@@ -74,9 +74,10 @@ public class PizzaJdbc implements IPizzaDao {
 				ajoutPizza.setString(4, p.getCategorie().getValue());
 				ajoutPizza.executeUpdate();
 			}
-			ajoutPizza.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
+		} finally {
+			ajoutPizza.close();
 		}
 	}
 
@@ -95,7 +96,7 @@ public class PizzaJdbc implements IPizzaDao {
 				pizzas.add(new Pizza(id, code, libelle, prix, categorie));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 		} finally {
 			resultats.close();
 		}
@@ -103,20 +104,57 @@ public class PizzaJdbc implements IPizzaDao {
 	}
 
 	@Override
-	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException {
+	public boolean saveNewPizza(Pizza pizza) throws SavePizzaException, SQLException {
 
-		return false;
+		PreparedStatement ajoutPizza = conn
+				.prepareStatement("INSERT INTO PIZZA(code, libelle, prix, categorie) VALUES ( ? , ? , ?, ? ) ");
+		try {
+			ajoutPizza.setString(1, pizza.getCode());
+			ajoutPizza.setString(2, pizza.getNom());
+			ajoutPizza.setDouble(3, pizza.getPrix());
+			ajoutPizza.setString(4, pizza.getCategorie().getValue());
+			ajoutPizza.executeUpdate();
+		} catch (SQLException e) {
+			LOG.debug(e.getMessage());
+		} finally {
+			ajoutPizza.close();
+		}
+
+		return true;
 	}
 
 	@Override
-	public boolean updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException, SQLException {
+		PreparedStatement updatePizza = conn
+				.prepareStatement("UPDATE pizza SET libelle=? ,reference=?,prix=?,categorie=?  WHERE id= ?  ");
+		try {
+
+			updatePizza.setString(1, pizza.getNom());
+			updatePizza.setString(2, pizza.getCode());
+			updatePizza.setDouble(3, pizza.getPrix());
+			updatePizza.setString(4, pizza.getCategorie().getValue());
+			updatePizza.setInt(5, pizza.getId());
+			updatePizza.executeUpdate();
+		} catch (SQLException e) {
+			LOG.debug(e.getMessage());
+		} finally {
+			updatePizza.close();
+		}
+
+		return true;
 	}
 
 	@Override
-	public boolean deletePizza(String codePizza) throws DeletePizzaException {
-		// TODO Auto-generated method stub
+	public boolean deletePizza(String codePizza) throws DeletePizzaException, SQLException {
+		PreparedStatement deletePizza = conn.prepareStatement("DELETE FROM `pizza` WHERE reference = ?  ");
+		try {
+			deletePizza.setString(1, codePizza);
+			deletePizza.executeUpdate();
+		} catch (SQLException e) {
+			LOG.debug(e.getMessage());
+		} finally {
+			deletePizza.close();
+		}
 		return false;
 	}
 
