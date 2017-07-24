@@ -1,13 +1,26 @@
 package fr.pizzeria.model;
 
-public class Pizza {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "pizza")
+public class Pizza {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	String code;
 	String nom;
 	Double prix;
 	CategoriePizza categorie;
 	
+	public Pizza() {
+		super();
+	}
+
 	/**
 	 * @param id
 	 * @param code

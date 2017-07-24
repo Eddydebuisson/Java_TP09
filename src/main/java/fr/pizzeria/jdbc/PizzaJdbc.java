@@ -25,9 +25,7 @@ public class PizzaJdbc implements IPizzaDao {
 	private static final String MYDRIVER = "org.h2.Driver";
 	private Statement statement;
 
-	public Connection getConn() {
-		return conn;
-	}
+
 
 	public PizzaJdbc() throws ClassNotFoundException, SQLException {
 		initConnection();
@@ -38,17 +36,20 @@ public class PizzaJdbc implements IPizzaDao {
 	public void initConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(MYDRIVER);
 		String url = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1";
-			String user = "sa";
+		String user = "sa";
 		String bdPass = "";
 		conn = DriverManager.getConnection(url, user, bdPass);
 	}
 
 	public void createtable() throws SQLException {
 
-		String sql = "CREATE TABLE Pizza (" + " ID int NOT NULL AUTO_INCREMENT," + " code varchar(32) NOT NULL,"
+		statement = conn.createStatement();
+		String sql = "CREATE TABLE IF NOT EXISTS Pizza (" + " ID int NOT NULL AUTO_INCREMENT,"
+				+ " code varchar(32) NOT NULL,"
 				+ " Libelle varchar(32)," + " prix double(4)," + " categorie varchar(32) NOT NULL,"
 				+ " PRIMARY KEY (ID));";
 		statement.execute(sql);
+
 	}
 
 	public void initTable() throws SQLException {
@@ -71,7 +72,7 @@ public class PizzaJdbc implements IPizzaDao {
 				ajoutPizza.setString(1, p.getCode());
 				ajoutPizza.setString(2, p.getNom());
 				ajoutPizza.setDouble(3, p.getPrix());
-				ajoutPizza.setString(4, p.getCategorie().getValue());
+				ajoutPizza.setString(4, p.getCategorie().name());
 				ajoutPizza.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -112,7 +113,7 @@ public class PizzaJdbc implements IPizzaDao {
 			ajoutPizza.setString(1, pizza.getCode());
 			ajoutPizza.setString(2, pizza.getNom());
 			ajoutPizza.setDouble(3, pizza.getPrix());
-			ajoutPizza.setString(4, pizza.getCategorie().getValue());
+			ajoutPizza.setString(4, pizza.getCategorie().name());
 			ajoutPizza.executeUpdate();
 		} catch (SQLException e) {
 			LOG.debug(e.getMessage());
@@ -126,14 +127,14 @@ public class PizzaJdbc implements IPizzaDao {
 	@Override
 	public boolean updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException, SQLException {
 		PreparedStatement updatePizza = conn
-				.prepareStatement("UPDATE pizza SET libelle=? ,reference=?,prix=?,categorie=?  WHERE id= ?  ");
+				.prepareStatement("UPDATE pizza SET libelle=? ,code=?,prix=?,categorie=?  WHERE code= ?  ");
 		try {
 
 			updatePizza.setString(1, pizza.getNom());
 			updatePizza.setString(2, pizza.getCode());
 			updatePizza.setDouble(3, pizza.getPrix());
-			updatePizza.setString(4, pizza.getCategorie().getValue());
-			updatePizza.setInt(5, pizza.getId());
+			updatePizza.setString(4, pizza.getCategorie().name());
+			updatePizza.setString(5, codePizza);
 			updatePizza.executeUpdate();
 		} catch (SQLException e) {
 			LOG.debug(e.getMessage());
@@ -146,7 +147,7 @@ public class PizzaJdbc implements IPizzaDao {
 
 	@Override
 	public boolean deletePizza(String codePizza) throws DeletePizzaException, SQLException {
-		PreparedStatement deletePizza = conn.prepareStatement("DELETE FROM `pizza` WHERE reference = ?  ");
+		PreparedStatement deletePizza = conn.prepareStatement("DELETE FROM `pizza` WHERE code = ?  ");
 		try {
 			deletePizza.setString(1, codePizza);
 			deletePizza.executeUpdate();
