@@ -18,7 +18,7 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
-public class TestPizzaJdbc {
+public class PizzaJdbcTest {
 
 	@Rule
 	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();

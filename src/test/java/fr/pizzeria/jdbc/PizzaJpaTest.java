@@ -11,7 +11,7 @@ import fr.pizzeria.dao.PizzaDaoJpa;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
-public class TestPizzaJpa {
+public class PizzaJpaTest {
 
 	@Rule
 	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();

@@ -3,6 +3,9 @@
 	<persistence-unit name="pizzaria-console-enum" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>fr.pizzeria.model.Pizza</class>
+		<class>fr.pizzeria.model.Client</class>
+		<class>fr.pizzeria.model.Commande</class>
+		<class>fr.pizzeria.model.Livreur</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pizzeria"/>
 			<property name="javax.persistence.jdbc.user" value="pizzeria"/>
