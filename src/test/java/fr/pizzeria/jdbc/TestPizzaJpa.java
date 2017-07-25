@@ -1,9 +1,6 @@
 package fr.pizzeria.jdbc;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -19,35 +16,36 @@ public class TestPizzaJpa {
 	@Rule
 	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
-	private PizzaDaoJpa jpa;
+	private static PizzaDaoJpa jpa;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
+		jpa = new PizzaDaoJpa();
+	}
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("pizzaria-console-enum");
-		EntityManager em1 = emf.createEntityManager();
-		em1.getTransaction().begin();
-		em1.persist(new Pizza("IND", "L'indienne", 14.00, CategoriePizza.POISSON));
-		em1.getTransaction().commit();
 
-		em1.close();
-
-		// requete JPQL
-
-		EntityManager em2 = emf.createEntityManager();
-
-		TypedQuery<Pizza> query = em2.createQuery("select p from Pizza p", Pizza.class);
-		query.getResultList().forEach(System.out::println);
-
-		em2.close();
-
-		emf.close();
+	@Test
+	public void testSavePizza() throws Exception {
+		Pizza p = new Pizza("DOG", "Chien", 12.00, CategoriePizza.VIANDE);
+		jpa.saveNewPizza(p);
+		assertThat(jpa.findAllPizzas()).contains(p);
 
 	}
 
 	@Test
-	public void testBase() throws Exception {
-
+	public void testUpdatePizza() throws Exception {
+		Pizza p = new Pizza("DOG", "Chien2", 12.00, CategoriePizza.VIANDE);
+		jpa.updatePizza("PEP", p);
+		assertThat(jpa.findAllPizzas()).contains(p);
 	}
+
+	@Test
+	public void testDeletePizza() throws Exception {
+		Pizza p = new Pizza("MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE);
+		jpa.deletePizza("MAR");
+		assertThat(jpa.findAllPizzas()).doesNotContain(p);
+	}
+
+
 
 }
