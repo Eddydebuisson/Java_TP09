@@ -12,6 +12,7 @@
 			<property name="javax.persistence.jdbc.password" value="pizzeria"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57InnoDBDialect"/>
 		</properties>
 	</persistence-unit>
 </persistence>

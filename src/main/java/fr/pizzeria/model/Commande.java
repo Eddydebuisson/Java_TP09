@@ -21,24 +21,25 @@ public class Commande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "numero_commande")
-	private Integer NumeroDeCommande;
+	private Integer numeroDeCommande;
 	@Column(name = "date_commande")
 	private Date dateCommande;
 	@Column(name="statut")
 	private Statut statut;
 	@ManyToOne
 	@JoinColumn(name = "livreur_id")
-	private Livreur idLivreur;
+	private Livreur livreur;
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private Client idClient;
+	private Client client;
 
 	@ManyToMany
-	@JoinTable(name = "commande_pizza", joinColumns = @JoinColumn(name = "commande_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "id"))
+	@JoinTable(name = "commande_pizza", joinColumns = @JoinColumn(name = "command_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "pizza_id", referencedColumnName = "id"))
 	private List<Pizza> pizza;
 
 	public Commande() {
 		super();
 	}
+
 
 }

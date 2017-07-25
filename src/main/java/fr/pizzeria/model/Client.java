@@ -1,5 +1,6 @@
 package fr.pizzeria.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Client {
 	private String nom;
 	private String prenom;
 	private String email;
+	@Column(name = "mot_de_passe")
 	private String motDePasse;
 
 	public Client() {
